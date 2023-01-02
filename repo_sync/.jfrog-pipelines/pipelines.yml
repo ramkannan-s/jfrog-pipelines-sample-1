@@ -19,7 +19,7 @@ pipelines:
   - name: jfrog_pipelines_demo_1
     steps:
     - name: dry_run_step
-      type: utils/bashV2
+      type: Bash
       configuration:
         inputResources:
           - name: repo_check_data     # Trigger execution on code commit
