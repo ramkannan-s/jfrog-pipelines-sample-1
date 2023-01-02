@@ -15,7 +15,7 @@ pipelines:
       type: Bash
       configuration:
         inputResources:
-          - name: github_ram     # Trigger execution on code commit
+          - name: repo_check_data     # Trigger execution on code commit
       execution:
         onExecute:
           - echo "Hello World!"
