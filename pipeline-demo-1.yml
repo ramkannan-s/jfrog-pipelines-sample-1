@@ -1,0 +1,9 @@
+
+resources:
+  - name: repo_check_data
+    type: GitRepo
+    configuration:
+      gitProvider: github_ram
+      path: ramkannan-s/jfrog_scripts/
+      branches:
+        include: master
