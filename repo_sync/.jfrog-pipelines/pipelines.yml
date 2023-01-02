@@ -20,6 +20,7 @@ pipelines:
         onExecute:
           - echo "Hello World!"
           - ls
-          - cd repos_scripts/
+          - ls workspace/
+          - cd workspace/repos_scripts/
           - chmod +x getRepoList.sh
           - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
