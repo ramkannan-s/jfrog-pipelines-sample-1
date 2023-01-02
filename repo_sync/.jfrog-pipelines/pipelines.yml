@@ -8,12 +8,14 @@ resources:
       branches:
         include: master
 
-steps:
-- name: dry_run_step
-  type: Bash
-  configuration:
-    inputResources:
-      - name: github_ram     # Trigger execution on code commit
-  execution:
-    onExecute:
-      - echo "Hello World!"
+pipelines:
+  - name: jfrog-pipelines-demo-1
+    steps:
+    - name: dry_run_step
+      type: Bash
+      configuration:
+        inputResources:
+          - name: github_ram     # Trigger execution on code commit
+      execution:
+        onExecute:
+          - echo "Hello World!"
