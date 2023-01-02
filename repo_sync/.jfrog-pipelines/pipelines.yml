@@ -4,7 +4,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: github_ram
-      path: ramkannan-s/jfrog_scripts/
+      path: jfrog_scripts/
       branches:
         include: master
 
