@@ -26,9 +26,8 @@ pipelines:
       execution:
         onExecute:
           - echo "Hello World!"
-          - ls
-          - ls workspace/
-          - jf c s
+          - ls -lR
+          - curl -fL https://install-cli.jfrog.io | sh
           - find . -type f -name "*.sh"
           - chmod +x getRepoList.sh
           - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
