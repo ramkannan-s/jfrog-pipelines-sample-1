@@ -1,6 +1,13 @@
 
 resources:
-  - name: repo_check_data
+  - name: pipelines_script_repo
+    type: GitRepo
+    configuration:
+      gitProvider: github_ram
+      path: ramkannan-s/jfrog-pipelines-sample-1
+      branches:
+        include: master
+ - name: repo_check_data
     type: GitRepo
     configuration:
       gitProvider: github_ram
@@ -12,7 +19,7 @@ pipelines:
   - name: jfrog_pipelines_demo_1
     steps:
     - name: dry_run_step
-      type: Bash
+      type: utils/bashV2
       configuration:
         inputResources:
           - name: repo_check_data     # Trigger execution on code commit
@@ -21,6 +28,7 @@ pipelines:
           - echo "Hello World!"
           - ls
           - ls workspace/
-          - cd workspace/repos_scripts/
+          - jf c s
+          - find . -type f -name "*.sh"
           - chmod +x getRepoList.sh
           - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
