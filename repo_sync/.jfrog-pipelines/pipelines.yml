@@ -28,8 +28,7 @@ pipelines:
           - echo "Hello World!"
           - cd ./dependencyState/resources/repo_check_data/repos_scripts/
           - ls -lsa
-          - chmod +x getRepoList.sh
-          - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
           - curl -fL https://install-cli.jfrog.io | sh
           - jf c show
           - jf --version
+          - bash getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
