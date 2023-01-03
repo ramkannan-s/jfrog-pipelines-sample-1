@@ -26,8 +26,8 @@ pipelines:
       execution:
         onExecute:
           - echo "Hello World!"
-          - ls -lR
+          - pushd $res_dry_run_step_resourcePath
           - curl -fL https://install-cli.jfrog.io | sh
-          - find . -type f -name "*.sh"
           - chmod +x getRepoList.sh
           - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
+          - popd
