@@ -31,6 +31,6 @@ pipelines:
           - jf c show
           - jf --version
           - ls -lsa
-          - sudo apt-get update
-          - sudo apt-get install jq
+          - sudo apt-get update -y
+          - sudo apt-get install jq -y
           - ./getRepoList.sh https://ramkannan.jfrog.io local admin cmVmdGtuOjAxOjAwMDAwMDAwMDA6Q3NGVFpVM1d4a2d2UDRVaVJvWnA1RVlPVFVP
