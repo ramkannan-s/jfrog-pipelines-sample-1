@@ -7,13 +7,7 @@ resources:
       path: ramkannan-s/jfrog-pipelines-sample-1
       branches:
         include: main
-  - name: repo_check_data
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog_scripts
-      branches:
-        include: main
+
 
 pipelines:
   - name: jfrog_pipelines_demo_1
