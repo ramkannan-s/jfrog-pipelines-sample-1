@@ -1,0 +1,33 @@
+
+resources:
+  - name: pipelines_script_repo
+    type: GitRepo
+    configuration:
+      gitProvider: github_ram
+      path: ramkannan-s/jfrog-pipelines-sample-1
+      branches:
+        include: main
+        
+  - name: maven_repo
+    type: GitRepo
+    configuration:
+      gitProvider: github_ram
+      path: ramkannan-s/frogbot-maven-hello-world
+      branches:
+        include: main
+        
+pipelines:
+  - name: maven_ci_build_normal
+    steps:
+    - name: maven_build
+      type: Bash
+      configuration:
+        inputResources:
+          - name: repo_check_data     # Trigger execution on code commit
+      execution:
+        onExecute:
+          - echo "Hello World!"
+          - cd ./dependencyState/resources/maven_repo/
+          - mvn clean install
+          - ls -lsa
+          
