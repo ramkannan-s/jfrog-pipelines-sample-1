@@ -1,6 +1,6 @@
 
 resources:
-  - name: pipelines_script_repo
+  - name: pipelines_script_repo_2
     type: GitRepo
     configuration:
       gitProvider: github_ram
@@ -23,7 +23,7 @@ pipelines:
       type: Bash
       configuration:
         inputResources:
-          - name: repo_check_data     # Trigger execution on code commit
+          - name: maven_repo     # Trigger execution on code commit
       execution:
         onExecute:
           - echo "Hello World!"
