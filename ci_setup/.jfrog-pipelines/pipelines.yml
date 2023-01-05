@@ -22,9 +22,9 @@ resources:
       sourceArtifactory: artifactory
         
 pipelines:
-  - name: maven_ci_build_normal
+  - name: maven_ci_build_normal_jfrog
     steps:
-    - name: maven_build
+    - name: maven_build_normal
       type: Bash
       configuration:
         inputResources:
@@ -54,23 +54,21 @@ pipelines:
           - mvn clean install
           - ls -lsa
           
-  - name: demo_maven
-    steps:
-      - name: mvn_build_step
-        type: MvnBuild
-        configuration:
-          deployerSnapshotRepo: "mvn-local-snapshot"
-          deployerReleaseRepo: "mvn-local-release"
-          inputResources:
-            - name: maven_repo
-          integrations:
-            - name: artifactory
- 
-      - name: publish_build
-        type: PublishBuildInfo
-        configuration:
-          forceXrayScan: true
-          inputSteps:
-            - name: mvn_build_step
-          outputResources:
-            - name: mvn_build_info
+    - name: maven_build_jfrog
+      type: MvnBuild
+      configuration:
+        deployerSnapshotRepo: "mvn-local-snapshot"
+        deployerReleaseRepo: "mvn-local-release"
+        inputResources:
+          - name: maven_repo
+        integrations:
+          - name: artifactory
+
+    - name: publish_build
+      type: PublishBuildInfo
+      configuration:
+        forceXrayScan: true
+        inputSteps:
+          - name: maven_build_jfrog
+        outputResources:
+          - name: mvn_build_info
