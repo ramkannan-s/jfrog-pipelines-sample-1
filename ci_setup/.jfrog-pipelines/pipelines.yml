@@ -28,7 +28,7 @@ pipelines:
       type: Bash
       configuration:
         integrations:
-          - name: test_creds_add
+          - name: genericcreds
         inputResources:
           - name: maven_repo     # Trigger execution on code commit
       execution:
@@ -54,8 +54,8 @@ pipelines:
           - cd ./dependencyState/resources/maven_repo/
           - mvn clean install
           - ls -lsa
-          - printenv int_test_creds_add_username
-          - printenv int_test_creds_add_password
+          - printenv int_genericcreds_india
+          - printenv int_genericcreds_india
           
     - name: maven_build_jfrog
       type: MvnBuild
