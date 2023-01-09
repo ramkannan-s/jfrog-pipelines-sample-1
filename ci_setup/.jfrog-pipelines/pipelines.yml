@@ -27,6 +27,8 @@ pipelines:
     - name: maven_build_normal
       type: Bash
       configuration:
+        integrations:
+          - name: test_creds_add
         inputResources:
           - name: maven_repo     # Trigger execution on code commit
       execution:
@@ -65,7 +67,6 @@ pipelines:
           - name: maven_repo
         integrations:
           - name: artifactory
-          - name: test_creds_add
 
     - name: publish_build
       type: PublishBuildInfo
