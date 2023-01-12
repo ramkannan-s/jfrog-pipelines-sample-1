@@ -20,6 +20,11 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: artifactory
+   
+  - name: docker_buildinfo
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: artifactory
         
 pipelines:
   - name: maven_ci_build_normal_jfrog
@@ -76,3 +81,34 @@ pipelines:
           - name: maven_build_jfrog
         outputResources:
           - name: mvn_build_info
+
+    - name: docker_build
+      type: DockerBuild
+      configuration:
+        dockerFileLocation: .
+        dockerFileName: Dockerfile
+        dockerImageName: proservices.jfrog.io/docker-pipelines-demo-1/mavenbuild    # replace with your fully qualified Docker registry/image name
+        dockerImageTag: ${run_number}
+        inputResources:
+          - name: maven_repo
+        integrations:
+          - name: artifactory
+
+    - name: docker_push
+      type: DockerPush
+      configuration:
+        affinityGroup: docker_group
+        targetRepository: docker-pipelines-demo-1
+        integrations:
+          - name: artifactory                           
+        inputSteps:
+          - name: docker_build
+
+    - name: publish_app_build
+      type: PublishBuildInfo
+      configuration:
+        affinityGroup: docker_group
+        inputSteps:
+          - name: docker_push
+        outputResources:
+          - name: docker_buildinfo
