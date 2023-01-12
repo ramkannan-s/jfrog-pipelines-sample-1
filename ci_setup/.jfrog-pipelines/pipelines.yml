@@ -85,6 +85,7 @@ pipelines:
     - name: docker_build
       type: DockerBuild
       configuration:
+        affinityGroup: docker_group
         dockerFileLocation: .
         dockerFileName: Dockerfile
         dockerImageName: proservices.jfrog.io/docker-pipelines-demo-1/mavenbuild    # replace with your fully qualified Docker registry/image name
