@@ -61,6 +61,7 @@ pipelines:
           - ls -lsa
           - printenv int_genericcreds_india
         onComplete:
+          - ls -lR
           - add_run_files ./dependencyState/resources/maven_repo/target/ramlab_hello-1.0.1.jar test.jar 
           
     - name: maven_build_jfrog
