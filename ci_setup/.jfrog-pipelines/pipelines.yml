@@ -124,5 +124,6 @@ pipelines:
         onStart:
           - restore_run_files test.jar test.jar    # save the contents of 'cachefile.txt' to 'myfile'
         onExecute:
-          - ls -lsa
+          - ls -lR
+          - cd ./dependencyState/
           - echo "Hello world"
