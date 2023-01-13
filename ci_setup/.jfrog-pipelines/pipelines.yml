@@ -61,7 +61,7 @@ pipelines:
           - ls -lsa
           - printenv int_genericcreds_india
         onComplete:
-          - add_run_files ramlab_hello-1.0.1.jar test.jar 
+          - add_run_files ./dependencyState/resources/maven_repo/ramlab_hello-1.0.1.jar test.jar 
           
     - name: maven_build_jfrog
       type: MvnBuild
