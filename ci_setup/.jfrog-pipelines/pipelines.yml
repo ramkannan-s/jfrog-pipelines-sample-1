@@ -67,6 +67,7 @@ pipelines:
     - name: maven_build_jfrog
       type: MvnBuild
       configuration:
+        allowFailure: boolean
         requiresApproval: true
         deployerSnapshotRepo: "mvn-local-snapshot"
         deployerReleaseRepo: "mvn-local-release"
@@ -82,7 +83,7 @@ pipelines:
         inputSteps:
           - name: maven_build_jfrog
             status:
-                  - success
+              - success
         outputResources:
           - name: mvn_build_info
           
@@ -92,11 +93,11 @@ pipelines:
         inputSteps:
           - name: maven_build_jfrog
             status:
-                - failure
-                - error
-                - timeout
-                - cancelled
-                - skipped
+              - failure
+              - error
+              - timeout
+              - cancelled
+              - skipped
       execution:
         onExecute:
           - echo "The Step - maven_build_jfrog has failed or cancelled. Hence, Cannot RUN PublishBuild Info Part"
