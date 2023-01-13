@@ -67,6 +67,7 @@ pipelines:
     - name: maven_build_jfrog
       type: MvnBuild
       configuration:
+        timeoutSeconds: 300      # 5 minutes
         allowFailure: true
         requiresApproval: true
         deployerSnapshotRepo: "mvn-local-snapshot"
