@@ -98,9 +98,10 @@ pipelines:
               - timeout
               - cancelled
               - skipped
+              - unstable
       execution:
         onExecute:
-          - echo "The Step - maven_build_jfrog has failed or cancelled. Hence, Cannot RUN PublishBuild Info Part"
+          - echo "The Step - maven_build_jfrog has failed or cancelled or timedout. Hence, Cannot RUN PublishBuild Info Part"
           - printenv
 
 
