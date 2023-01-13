@@ -88,14 +88,14 @@ pipelines:
           
     - name: failure_maven_build
       type: Bash
-        inputSteps:
-          - name: maven_build_jfrog
-            status:
-                - failure
-                - error
-                - timeout
-                - cancelled
-                - skipped
+      inputSteps:
+        - name: maven_build_jfrog
+          status:
+              - failure
+              - error
+              - timeout
+              - cancelled
+              - skipped
       execution:
         onExecute:
           - echo "The Step - maven_build_jfrog has failed or cancelled. Hence, Cannot RUN PublishBuild Info Part"
