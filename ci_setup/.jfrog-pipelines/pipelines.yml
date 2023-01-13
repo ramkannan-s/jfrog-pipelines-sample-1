@@ -115,14 +115,14 @@ pipelines:
         outputResources:
           - name: docker_buildinfo
 
-   - name: restore_jar_file
-     type: Bash
-     configuration:
-       inputSteps:
-         - name: maven_build_normal
-     execution:
-       onStart:
-         - restore_run_files test.jar test.jar    # save the contents of 'cachefile.txt' to 'myfile'
-       onExecute:
-         - ls -lsa
-         - echo "Hello world"
+    - name: restore_jar_file
+      type: Bash
+      configuration:
+        inputSteps:
+          - name: maven_build_normal
+      execution:
+        onStart:
+          - restore_run_files test.jar test.jar    # save the contents of 'cachefile.txt' to 'myfile'
+        onExecute:
+          - ls -lsa
+          - echo "Hello world"
