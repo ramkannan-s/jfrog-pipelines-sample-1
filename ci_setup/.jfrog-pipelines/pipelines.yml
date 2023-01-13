@@ -60,7 +60,8 @@ pipelines:
           - mvn clean install
           - ls -lsa
           - printenv int_genericcreds_india
-          - printenv int_genericcreds_india
+        onComplete:
+          - add_run_files ramlab_hello-1.0.1.jar test.jar 
           
     - name: maven_build_jfrog
       type: MvnBuild
@@ -73,7 +74,7 @@ pipelines:
         integrations:
           - name: artifactory
 
-    - name: publish_build
+    - name: maven_app_build_publish
       type: PublishBuildInfo
       configuration:
         forceXrayScan: true
@@ -105,7 +106,7 @@ pipelines:
         inputSteps:
           - name: docker_build
 
-    - name: publish_app_build
+    - name: docker_app_build_publish
       type: PublishBuildInfo
       configuration:
         affinityGroup: docker_group
@@ -113,3 +114,15 @@ pipelines:
           - name: docker_push
         outputResources:
           - name: docker_buildinfo
+
+   - name: restore_jar_file
+     type: Bash
+     configuration:
+       inputSteps:
+         - name: maven_build_normal
+     execution:
+       onStart:
+         - restore_run_files test.jar test.jar    # save the contents of 'cachefile.txt' to 'myfile'
+       onExecute:
+         - ls -lsa
+         - echo "Hello world"
