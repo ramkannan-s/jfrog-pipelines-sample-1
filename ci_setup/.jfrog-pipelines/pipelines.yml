@@ -28,6 +28,10 @@ resources:
         
 pipelines:
   - name: maven_ci_build_normal_jfrog
+    configuration:
+      retentionPolicy:
+        maxAgeDays: 30
+        minRuns: 15
     steps:
     - name: maven_build_normal
       type: Bash
