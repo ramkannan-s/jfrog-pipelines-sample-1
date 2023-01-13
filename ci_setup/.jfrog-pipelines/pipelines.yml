@@ -67,7 +67,7 @@ pipelines:
     - name: maven_build_jfrog
       type: MvnBuild
       configuration:
-        allowFailure: boolean
+        allowFailure: true
         requiresApproval: true
         deployerSnapshotRepo: "mvn-local-snapshot"
         deployerReleaseRepo: "mvn-local-release"
