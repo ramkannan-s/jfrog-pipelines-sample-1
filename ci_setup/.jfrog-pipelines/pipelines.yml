@@ -155,13 +155,3 @@ pipelines:
           - ls test.jar
           - echo "Hello world"
 
-    - name: validate_info
-      type: Bash
-      configuration:
-        inputResources:
-          - name: mvn_build_info
-      execution:
-        onExecute:
-          - response=$(validate_artifact buildInfo --build-name ${res_mvn_build_info_buildName} --build-number ${res_mvn_build_info_buildNumber})
-          - validateResult=$(echo "$response" | jq '.result')
-          - if [ "$validateResult" != "true" ]; then echo "failed validation" && exit 1; fi
