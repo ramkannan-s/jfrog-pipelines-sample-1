@@ -57,7 +57,6 @@ pipelines:
             PATH="$M2_HOME/bin:$PATH"
             export PATH
             mvn -version
-            
         onExecute:
           - echo "Hello World!"
           - cd ./dependencyState/resources/maven_repo/
@@ -66,7 +65,10 @@ pipelines:
           - printenv int_genericcreds_india
         onComplete:
           - ls -lR
-          - add_run_files ./target/ramlab_hello-1.0.1.jar test.jar 
+          - add_run_files ./target/ramlab_hello-1.0.1.jar test.jar
+          - jfrog rt build-collect-environment
+          - jfrog rt build-publish --detailed-summary $JFROG_CLI_BUILD_NAME $JFROG_CLI_BUILD_NUMBER > summaryOutput.json
+          - save_artifact_info buildInfo summaryOutput.json --build-name=$JFROG_CLI_BUILD_NAME --build-number=$JFROG_CLI_BUILD_NUMBER
           
     - name: maven_build_jfrog
       type: MvnBuild
@@ -108,7 +110,6 @@ pipelines:
         onExecute:
           - echo "The Step - maven_build_jfrog has failed or cancelled or timedout. Hence, Cannot RUN PublishBuild Info Part"
           - printenv
-
 
     - name: docker_build
       type: DockerBuild
@@ -158,9 +159,9 @@ pipelines:
       type: Bash
       configuration:
         inputResources:
-          - name: docker_buildinfo
+          - name: mvn_build_info
       execution:
         onExecute:
-          - response=$(validate_artifact buildInfo --build-name ${res_docker_buildinfo_buildName} --build-number ${res_docker_buildinfo_buildNumber})
+          - response=$(validate_artifact buildInfo --build-name ${res_mvn_build_info_buildName} --build-number ${res_mvn_build_info_buildNumber})
           - validateResult=$(echo "$response" | jq '.result')
           - if [ "$validateResult" != "true" ]; then echo "failed validation" && exit 1; fi
