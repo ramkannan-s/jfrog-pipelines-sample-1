@@ -19,7 +19,6 @@ resources:
 pipelines:
   - name: artifacts_cleanup
     configuration:
-      timeoutSeconds: 300
       retentionPolicy:
         maxAgeDays: 30
         minRuns: 10
@@ -34,12 +33,11 @@ pipelines:
               - "true"
               - "false"
           aqlname: aql_properties_match.aql
-     #     JPD_TOKEN: "cmVmdGtuOjAxOjAwMDAwMDAwMDA6TFk4OUo5VGxxbmJ6bzFYNjVqa3FvNjhVRGxy"
-
     steps:
     - name: artifacts_cleanup_step
       type: Bash
       configuration:
+        timeoutSeconds: 300   # 5 minutes
         integrations:
           - name: genericcreds
         inputResources:
