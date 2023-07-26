@@ -54,6 +54,7 @@ pipelines:
             jq --version
             sudo curl -fL https://install-cli.jfrog.io | sh
             jf --version
+            python3 --version
         onExecute:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
