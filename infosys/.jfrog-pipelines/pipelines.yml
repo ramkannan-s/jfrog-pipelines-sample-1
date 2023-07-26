@@ -47,7 +47,7 @@ pipelines:
         onExecute:
           - echo "Hello World!"
           - ls -lsa
-          - jf --version
+          - curl -fL https://install-cli.jfrog.io | sh
           - cd ./dependencyState/resources/jfrog_scripts/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
