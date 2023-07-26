@@ -31,6 +31,7 @@ pipelines:
               - "true"
               - "false"
           aqlname: aql_properties_match.aql
+          JPD_TOKEN: "cmVmdGtuOjAxOjAwMDAwMDAwMDA6TFk4OUo5VGxxbmJ6bzFYNjVqa3FvNjhVRGxy"
 
     steps:
     - name: artifacts_cleanup_step
@@ -48,7 +49,8 @@ pipelines:
         onExecute:
           - jq --version
           - jf --version
-          - cd ./dependencyState/resources/jfrog_scripts/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${JPD_TOKEN}" --interactive=false
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
         onComplete:
