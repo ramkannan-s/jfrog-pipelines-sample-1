@@ -50,6 +50,7 @@ pipelines:
           - jq --version
           - jf --version
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${JPD_TOKEN}" --interactive=false
+          - jf c show
           - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
