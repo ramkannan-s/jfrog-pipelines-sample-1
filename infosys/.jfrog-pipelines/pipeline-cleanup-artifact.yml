@@ -1,21 +1,5 @@
 
 resources:
-  - name: JFrog_Pipelines_Repo
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog-pipelines-sample-1
-      branches:
-        include: main
-        
-  - name: JFrog_Automation_Repo
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog_scripts
-      branches:
-        include: main
-
   - name: cron_trigger_artifact_cleanup
     type: CronTrigger
     configuration:
@@ -46,7 +30,7 @@ pipelines:
           - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
-          - name: cron_trigger
+          - name: cron_trigger_artifact_cleanup
       execution:
         onStart:
           - |
