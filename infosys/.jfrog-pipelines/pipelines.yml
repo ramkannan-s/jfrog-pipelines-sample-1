@@ -4,7 +4,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: github_ram
-      path: ramkannan-s/jfrog-pipelines-sample-1/infosys/
+      path: ramkannan-s/jfrog-pipelines-sample-1/
       branches:
         include: main
         
