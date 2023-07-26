@@ -52,8 +52,8 @@ pipelines:
           - |
             echo "Installing Packages...."
             sudo apt-get install jq
-            jq --version
             sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
             jf --version
             python3 --version
         onExecute:
