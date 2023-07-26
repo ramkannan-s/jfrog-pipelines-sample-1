@@ -12,7 +12,7 @@ resources:
     type: GitRepo
     configuration:
       gitProvider: github_ram
-      path: ramkannan-s/jfrog_scripts/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql
+      path: ramkannan-s/jfrog_scripts
       branches:
         include: main
         
