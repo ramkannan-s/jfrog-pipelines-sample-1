@@ -19,6 +19,7 @@ resources:
 pipelines:
   - name: artifacts_cleanup
     configuration:
+      timeoutSeconds: 300
       retentionPolicy:
         maxAgeDays: 30
         minRuns: 10
@@ -47,14 +48,15 @@ pipelines:
         onStart:
           - |
             sudo apt-get install jq
+            jq --version
             sudo curl -fL https://install-cli.jfrog.io | sh
+            jf --version
         onExecute:
-          - jq --version
-          - jf --version
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
+          - jf rt ping
           - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
         onComplete:
-          - ls -lR
+          - echo "The current step is running in dry_run = ${dry_run}"
