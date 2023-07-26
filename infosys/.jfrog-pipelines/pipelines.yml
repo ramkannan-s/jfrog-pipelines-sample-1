@@ -15,6 +15,11 @@ resources:
       path: ramkannan-s/jfrog_scripts
       branches:
         include: main
+
+  - name: cron_trigger
+    type: CronTrigger
+    configuration:
+      interval: '*/55 * * * *'     # Every 55 minutes
         
 pipelines:
   - name: artifacts_cleanup
@@ -40,7 +45,8 @@ pipelines:
         integrations:
           - name: genericcreds
         inputResources:
-          - name: JFrog_Automation_Repo    
+          - name: JFrog_Automation_Repo
+          - name: cron_trigger
       execution:
         onStart:
           - |
