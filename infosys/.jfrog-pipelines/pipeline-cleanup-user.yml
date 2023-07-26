@@ -1,6 +1,6 @@
 
 resources:
-  - name: cron_trigger
+  - name: cron_trigger_user_cleanup
     type: CronTrigger
     configuration:
       interval: '*/5 * 1 * *'     
