@@ -37,7 +37,6 @@ pipelines:
     - name: artifacts_cleanup_step
       type: Bash
       configuration:
-        timeoutSeconds: 300   # 5 minutes
         integrations:
           - name: genericcreds
         inputResources:
