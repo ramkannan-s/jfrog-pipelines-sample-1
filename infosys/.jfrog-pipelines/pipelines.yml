@@ -17,7 +17,7 @@ resources:
         include: main
         
 pipelines:
-  - name: Artifacts CleanUp
+  - name: artifacts_cleanup
     configuration:
       retentionPolicy:
         maxAgeDays: 30
@@ -33,7 +33,7 @@ pipelines:
               - "false"
 
     steps:
-    - name: artifacts_cleanup
+    - name: artifacts_cleanup_step
       type: Bash
       configuration:
         integrations:
