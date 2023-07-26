@@ -26,11 +26,11 @@ pipelines:
         readOnly:
           aqlname: aql_properties_match.aql
           dry_run:
-            default: true
+            default: "true"
             description: This is to switch dry_run mode
             values:
-              - true
-              - false
+              - "true"
+              - "false"
 
     steps:
     - name: artifacts_cleanup
