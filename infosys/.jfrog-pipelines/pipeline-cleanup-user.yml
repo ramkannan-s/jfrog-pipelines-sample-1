@@ -40,7 +40,7 @@ pipelines:
             jq --version
             jf --version
             python3 --version
-            pip3 install requests
+            sudo pip3 install requests
         onExecute:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
