@@ -30,7 +30,7 @@ pipelines:
           - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
-          - name: cron_trigger
+          - name: cron_trigger_user_cleanup
       execution:
         onStart:
           - |
