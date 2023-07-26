@@ -22,6 +22,8 @@ pipelines:
       retentionPolicy:
         maxAgeDays: 30
         minRuns: 10
+      integrations:
+        - name: jpd_token
       environmentVariables:
         readOnly:
           dry_run:
@@ -31,7 +33,7 @@ pipelines:
               - "true"
               - "false"
           aqlname: aql_properties_match.aql
-          JPD_TOKEN: "cmVmdGtuOjAxOjAwMDAwMDAwMDA6TFk4OUo5VGxxbmJ6bzFYNjVqa3FvNjhVRGxy"
+     #     JPD_TOKEN: "cmVmdGtuOjAxOjAwMDAwMDAwMDA6TFk4OUo5VGxxbmJ6bzFYNjVqa3FvNjhVRGxy"
 
     steps:
     - name: artifacts_cleanup_step
@@ -49,7 +51,7 @@ pipelines:
         onExecute:
           - jq --version
           - jf --version
-          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${JPD_TOKEN}" --interactive=false
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
