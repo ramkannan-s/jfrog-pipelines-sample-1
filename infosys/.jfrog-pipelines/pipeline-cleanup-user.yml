@@ -1,25 +1,9 @@
 
 resources:
-  - name: JFrog_Pipelines_Repo
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog-pipelines-sample-1
-      branches:
-        include: main
-        
-  - name: JFrog_Automation_Repo
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog_scripts
-      branches:
-        include: main
-
   - name: cron_trigger
     type: CronTrigger
     configuration:
-      interval: '*/55 * * * *'     # Every 55 minutes
+      interval: '*/5 * 1 * *'     
         
 pipelines:
   - name: users_cleanup
@@ -37,7 +21,7 @@ pipelines:
             values:
               - "true"
               - "false"
-          aqlname: aql_properties_match.aql
+          months: 3
     steps:
     - name: artifacts_cleanup_step
       type: Bash
@@ -60,9 +44,10 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
-          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
-          - chmod +x 
-          - 
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/users_cleanup_last_login/
+          - chmod +x cleanup-users.sh
+          - python3 user-list.py
+          - ./cleanup-users.sh ${months} ${dry_run}
         onComplete:
           - echo "The current step is running in dry_run = ${dry_run}"
 
