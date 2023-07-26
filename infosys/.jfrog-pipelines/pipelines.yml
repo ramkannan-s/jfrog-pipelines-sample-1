@@ -46,6 +46,8 @@ pipelines:
             sudo apt-get install jq
         onExecute:
           - echo "Hello World!"
+          - ls -lsa
+          - jf --version
           - cd ./dependencyState/resources/jfrog_scripts/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
