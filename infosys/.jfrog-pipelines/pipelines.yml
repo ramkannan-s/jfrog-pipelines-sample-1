@@ -21,7 +21,7 @@ pipelines:
     configuration:
       retentionPolicy:
         maxAgeDays: 30
-        minRuns: 15
+        minRuns: 10
       environmentVariables:
         readOnly:
           aqlname: aql_properties_match.aql
