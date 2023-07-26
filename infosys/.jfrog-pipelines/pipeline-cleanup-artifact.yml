@@ -16,7 +16,7 @@ resources:
       branches:
         include: main
 
-  - name: cron_trigger
+  - name: cron_trigger_artifact_cleanup
     type: CronTrigger
     configuration:
       interval: '*/55 * * * *'     # Every 55 minutes
