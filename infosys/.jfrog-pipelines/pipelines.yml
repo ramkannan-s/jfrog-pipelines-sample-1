@@ -24,13 +24,13 @@ pipelines:
         minRuns: 10
       environmentVariables:
         readOnly:
-          aqlname: aql_properties_match.aql
           dry_run:
             default: "true"
             description: This is to switch dry_run mode
             values:
               - "true"
               - "false"
+          aqlname: aql_properties_match.aql
 
     steps:
     - name: artifacts_cleanup_step
@@ -46,8 +46,9 @@ pipelines:
             sudo apt-get install jq
             sudo curl -fL https://install-cli.jfrog.io | sh
         onExecute:
-          - ls -lR
-          - cd ./dependencyState/resources/jfrog_scripts/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
+          - jq --version
+          - jf --version
+          - cd ./dependencyState/resources/jfrog_scripts/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
           - chmod +x cleanup-artifacts.sh
           - ./cleanup-artifacts.sh ${aqlname} ${dry_run}
         onComplete:
