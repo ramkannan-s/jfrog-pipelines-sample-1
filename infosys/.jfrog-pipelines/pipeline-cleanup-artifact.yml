@@ -3,7 +3,7 @@ resources:
   - name: cron_trigger_artifact_cleanup
     type: CronTrigger
     configuration:
-      interval: '*/55 * * * *'     # Every 55 minutes
+      interval: '5 5 1 * 1'     # At 05:05 on day-of-month 1 and on Monday.
         
 pipelines:
   - name: artifacts_cleanup
@@ -21,7 +21,7 @@ pipelines:
             values:
               - "true"
               - "false"
-          aqlname: aql_properties_match.aql
+          aqlname: aql_repo_properties_match.aql
     steps:
     - name: artifacts_cleanup_step
       type: Bash
@@ -30,7 +30,7 @@ pipelines:
           - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
-          - name: cron_trigger_artifact_cleanup
+      #    - name: cron_trigger_artifact_cleanup
       execution:
         onStart:
           - |
