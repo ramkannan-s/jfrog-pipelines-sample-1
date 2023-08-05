@@ -3,7 +3,7 @@ resources:
   - name: cron_trigger_user_cleanup
     type: CronTrigger
     configuration:
-      interval: '*/5 * 1 * *'     
+      interval: '5 10 1 * 1'     # At 10:05 on day-of-month 1 and on Monday.
         
 pipelines:
   - name: users_cleanup
@@ -30,7 +30,7 @@ pipelines:
           - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
-          - name: cron_trigger_user_cleanup
+ #         - name: cron_trigger_user_cleanup
       execution:
         onStart:
           - |
