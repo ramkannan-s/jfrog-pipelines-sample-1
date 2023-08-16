@@ -5,7 +5,7 @@ pipelines:
   - name: syncDeleteDR
     configuration:
       jfrogCliVersion: 2
-      affinityGroup: together
+      #affinityGroup: together
       environmentVariables: 
         readOnly:
           JFROG_CLI_PLUGINS_SERVER: {{ .Values.jpdMain }}
@@ -93,7 +93,7 @@ pipelines:
           requiresApproval:
             timeoutSeconds: 300 # if not approved in this timeframe, the step will be cancelled
             approvers:
-              - auto_admin # must be a valid Artifactory user
+              - devnext-trail-user-2 # must be a valid Artifactory user
               - admin # must be a valid Artifactory user
         execution:
           onExecute:
