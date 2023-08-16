@@ -88,14 +88,13 @@ pipelines:
       - name: approvalForDeletion
         type: Bash
         configuration:
-          timeoutSeconds: 300
-          requiresApproval: true
-            approvers:
-              - auto_admin
-              - admin
-              - ramkannans@jfrog.com
           inputSteps:
             - name: dryRunforDeleteVirtualRepositories
+          requiresApproval:
+            timeoutSeconds: 300 # if not approved in this timeframe, the step will be cancelled
+            approvers:
+              - auto_admin # must be a valid Artifactory user
+              - admin # must be a valid Artifactory user
         execution:
           onExecute:
             - echo "Received Approval. Hence performing Delete"
