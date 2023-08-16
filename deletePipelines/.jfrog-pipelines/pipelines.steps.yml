@@ -1,0 +1,160 @@
+template: true   # required for local templates.
+valuesFilePath: ./values.yml
+
+pipelines:
+  - name: syncDeleteDR
+    configuration:
+      jfrogCliVersion: 2
+      affinityGroup: together
+      environmentVariables: 
+        readOnly:
+          JFROG_CLI_PLUGINS_SERVER: {{ .Values.jpdMain }}
+          JFROG_CLI_PLUGINS_REPO: jfrog-automation
+          JF_PLUGIN_REPOSYNC_INVENTORY_PATH: /tmp
+    steps:
+      - name: Ping
+        type: utils/ping
+        configuration:
+          #affinityGroup: together
+          inputResources:
+            - name: sync_cron
+          integrations:
+          # {{- range .Values.jpdIntegrationName }}
+          #   - name: "{{ . }}"
+          # {{- end }}
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          iteration: 2
+          sleepBetweenIteration: 5
+      - name: dryRunforDeleteLocalRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: Ping
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete local {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=true --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}
+      - name: dryRunforDeleteRemoteRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: dryRunforDeleteLocalRepositories
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete remote {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=true --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}
+      - name: dryRunforDeleteVirtualRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: dryRunforDeleteLocalRepositories
+            - name: dryRunforDeleteRemoteRepositories
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete virtual {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=true --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}   
+
+      - name: approvalForDeletion
+        type: Bash
+        configuration:
+          requiresApproval: true
+            timeoutSeconds: 300
+            approvers:
+              - auto_admin
+              - admin
+              - ramkannans@jfrog.com
+          inputSteps:
+            - name: dryRunforDeleteVirtualRepositories
+        execution:
+          onExecute:
+            - echo "Received Approval. Hence performing Delete"
+
+      - name: deleteLocalRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: approvalForDeletion
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete local {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=false --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}
+      - name: deleteRemoteRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: deleteLocalRepositories
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete remote {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=false --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}
+      - name: deleteVirtualRepositories
+        type: utils/bashV2
+        configuration:
+          #affinityGroup: together
+          inputSteps:
+            - name: deleteLocalRepositories
+            - name: deleteRemoteRepositories
+          integrations:
+            - name: {{ .Values.jpdMain }}
+            - name: {{ .Values.jpdDr }}
+          cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
+        execution:
+          onExecute:
+            - jf {{ .Values.cliPlugin.name }} -v
+            - jf {{ .Values.cliPlugin.name }} delete virtual {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=false --inventory=true
+          onSuccess:
+            - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
+            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
+            - rm -rf {{ .Values.jpdDr }}  
