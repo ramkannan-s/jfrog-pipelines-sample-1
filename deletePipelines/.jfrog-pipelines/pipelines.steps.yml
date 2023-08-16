@@ -88,8 +88,8 @@ pipelines:
       - name: approvalForDeletion
         type: Bash
         configuration:
+          timeoutSeconds: 300
           requiresApproval: true
-            timeoutSeconds: 300
             approvers:
               - auto_admin
               - admin
