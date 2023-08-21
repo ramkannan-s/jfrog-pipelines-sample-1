@@ -16,8 +16,6 @@ pipelines:
         type: utils/ping
         configuration:
           #affinityGroup: together
-          inputResources:
-            - name: sync_cron
           integrations:
           # {{- range .Values.jpdIntegrationName }}
           #   - name: "{{ . }}"
