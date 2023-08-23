@@ -41,7 +41,7 @@ pipelines:
             - jf {{ .Values.cliPlugin.name }} delete remote {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=true --inventory=true
           onSuccess:
             - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
-            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - mkdir -p {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
             - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
             - rm -rf {{ .Values.jpdDr }}
       - name: dryRunforDeleteVirtualRepositories
@@ -60,7 +60,7 @@ pipelines:
             - jf {{ .Values.cliPlugin.name }} delete virtual {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=true --inventory=true
           onSuccess:
             - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
-            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - mkdir -p {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
             - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
             - rm -rf {{ .Values.jpdDr }}   
 
@@ -95,7 +95,7 @@ pipelines:
             - jf {{ .Values.cliPlugin.name }} delete remote {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=false --inventory=true
           onSuccess:
             - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
-            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - mkdir -p {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
             - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
             - rm -rf {{ .Values.jpdDr }}
       - name: deleteVirtualRepositories
@@ -115,6 +115,6 @@ pipelines:
             - jf {{ .Values.cliPlugin.name }} delete virtual {{ .Values.jpdMain }} {{ .Values.jpdDr }} --dry-run=false --inventory=true
           onSuccess:
             - cd $JF_PLUGIN_REPOSYNC_INVENTORY_PATH && ls -l       
-            - mkdir {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
+            - mkdir -p {{ .Values.jpdDr }} && mv inventory*.yaml {{ .Values.jpdDr }}/
             - jf rt u {{ .Values.jpdDr }}/* $JFROG_CLI_PLUGINS_REPO/
             - rm -rf {{ .Values.jpdDr }}  
