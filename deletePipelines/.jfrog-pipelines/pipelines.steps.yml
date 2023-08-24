@@ -20,8 +20,8 @@ pipelines:
           # {{- range .Values.jpdIntegrationName }}
           #   - name: "{{ . }}"
           # {{- end }}
-            - name: {{ .Values.jpdMain }}
-            - name: {{ .Values.jpdDr }}
+            - name: "{{ .Values.jpdMain }}"
+            - name: "{{ .Values.jpdDr }}"
           iteration: 2
           sleepBetweenIteration: 5
 
@@ -32,8 +32,8 @@ pipelines:
           inputSteps:
             - name: Ping
           integrations:
-            - name: {{ .Values.jpdMain }}
-            - name: {{ .Values.jpdDr }}
+            - name: "{{ .Values.jpdMain }}"
+            - name: "{{ .Values.jpdDr }}"
           cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
         execution:
           onExecute:
@@ -51,8 +51,8 @@ pipelines:
           inputSteps:
             - name: dryRunforDeleteRemoteRepositories
           integrations:
-            - name: {{ .Values.jpdMain }}
-            - name: {{ .Values.jpdDr }}
+            - name: "{{ .Values.jpdMain }}"
+            - name: "{{ .Values.jpdDr }}"
           cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
         execution:
           onExecute:
@@ -86,8 +86,8 @@ pipelines:
           inputSteps:
             - name: approvalForDeletion
           integrations:
-            - name: {{ .Values.jpdMain }}
-            - name: {{ .Values.jpdDr }}
+            - name: "{{ .Values.jpdMain }}"
+            - name: "{{ .Values.jpdDr }}"
           cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
         execution:
           onExecute:
@@ -106,8 +106,8 @@ pipelines:
             - name: approvalForDeletion
             - name: deleteRemoteRepositories
           integrations:
-            - name: {{ .Values.jpdMain }}
-            - name: {{ .Values.jpdDr }}
+            - name: "{{ .Values.jpdMain }}"
+            - name: "{{ .Values.jpdDr }}"
           cliPlugin: "{{ .Values.cliPlugin.name }}@{{ .Values.cliPlugin.version }}"
         execution:
           onExecute:
