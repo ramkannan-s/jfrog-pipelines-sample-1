@@ -5,6 +5,9 @@ pipelines:
   - name: syncDeleteDR
     configuration:
       jfrogCliVersion: 2
+      retentionPolicy:
+        maxAgeDays: 30
+        minRuns: 10
       #affinityGroup: together
       environmentVariables: 
         readOnly:
