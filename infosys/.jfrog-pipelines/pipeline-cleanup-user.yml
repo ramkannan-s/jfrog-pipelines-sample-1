@@ -23,13 +23,14 @@ pipelines:
               - "false"
           months: 3
     steps:
-    - name: artifacts_cleanup_step
+    - name: users_cleanup_step
       type: Bash
       configuration:
         integrations:
           - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
+            trigger: false
  #         - name: cron_trigger_user_cleanup
       execution:
         onStart:
