@@ -22,7 +22,7 @@ pipelines:
       type: Bash
       configuration:
         integrations:
-          - name: genericcreds
+          - name: jpd_token
         inputResources:
           - name: JFrog_Automation_Repo
             trigger: false
