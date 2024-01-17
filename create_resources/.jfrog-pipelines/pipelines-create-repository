@@ -1,0 +1,44 @@
+pipelines:
+  - name: repository_create
+    configuration:
+      retentionPolicy:
+        maxAgeDays: 30
+        minRuns: 10
+      integrations:
+        - name: jpd_token
+      environmentVariables:
+        readOnly:
+          repo_type:
+            default: "local"
+            description: "Enter the repo type"
+            values:
+              - "local"
+              - "remote"
+              - "virtual"
+              - "federated"
+          repokeyname: ""
+    steps:
+    - name: setup_configuration
+      type: Bash
+      configuration:
+        integrations:
+          - name: genericcreds
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
+            python3 --version
+        onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
+        onComplete:
+          - echo "The current step is for creating ${repo_type} repository"
