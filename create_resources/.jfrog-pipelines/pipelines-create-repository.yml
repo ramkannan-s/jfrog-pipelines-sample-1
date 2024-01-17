@@ -17,7 +17,7 @@ pipelines:
               - virtual
               - federated
           packageType:
-            default: ""
+            default: "alpine"
             description: "Select the Package Type"
             values:
               - alpine
