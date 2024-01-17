@@ -1,9 +1,0 @@
-
-resources:
-  - name: pipelines_script_repo_2
-    type: GitRepo
-    configuration:
-      gitProvider: github_ram
-      path: ramkannan-s/jfrog-pipelines-sample-1
-      branches:
-        include: main

@@ -1,0 +1,20 @@
+
+resources:
+  - name: JFrog_Pipelines_Repo
+    type: GitRepo
+    configuration:
+      gitProvider: github_pipelines_ram
+      path: ramkannan-s/jfrog-pipelines-sample-1
+    
+  - name: JFrog_Automation_Repo
+    type: GitRepo
+    configuration:
+      gitProvider: github_pipelines_ram
+      path: ramkannan-s/infy_repository_data_automations
+
+inputResources: 
+  - name: JFrog_Automation_Repo 
+    trigger: false
+
+  - name: JFrog_Pipelines_Repo 
+    trigger: false
