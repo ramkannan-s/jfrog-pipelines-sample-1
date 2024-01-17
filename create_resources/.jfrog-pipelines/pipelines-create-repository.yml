@@ -10,36 +10,48 @@ pipelines:
         readOnly:
           repoType:
             default: "local"
-            description: "Enter the repo type"
+            description: "Select the Repository Type"
             values:
-              - maven
-              - gradle
-              - ivy
-              - helm
-              - sbt
-              - nuget
-              - gems
-              - npm
-              - bower
-              - debian
-              - composer
-              - pypi
-              - docker
-              - vagrant
-              - gitlfs
-              - yum
-              - conan
-              - chef
-              - puppet
-              - generic
+              - local
+              - remote
+              - virtual
+              - federated
           packageType:
-            default: "local"
-            description: "Enter the repo type"
+            description: "Select the Package Type"
             values:
-              - "local"
-              - "remote"
-              - "virtual"
-              - "federated"
+              - alpine
+              - bower
+              - cargo
+              - chef
+              - cocoapods
+              - conan
+              - conda
+              - cran
+              - debian
+              - docker
+              - gems
+              - generic
+              - gitlfs
+              - go
+              - gradle
+              - helm
+              - helmoci
+              - huggingfaceml
+              - ivy
+              - maven
+              - npm
+              - nuget
+              - oci
+              - opkg
+              - php
+              - pub
+              - puppet
+              - pypi
+              - rpm
+              - sbt
+              - swift
+              - terraform-modules
+              - vagrant
           repoName: ""
     steps:
     - name: setup_configuration
