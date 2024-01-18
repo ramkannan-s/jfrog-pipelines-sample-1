@@ -12,47 +12,47 @@ pipelines:
             default: "local"
             description: "Select the Repository Type"
             values:
-              - local
-              - remote
-              - virtual
-              - federated
+              - "local"
+              - "remote"
+              - "virtual"
+              - "federated"
           packageType:
             default: "alpine"
             description: "Select the Package Type"
             values:
-              - alpine
-              - bower
-              - cargo
-              - chef
-              - cocoapods
-              - conan
-              - conda
-              - cran
-              - debian
-              - docker
-              - gems
-              - generic
-              - gitlfs
-              - go
-              - gradle
-              - helm
-              - helmoci
-              - huggingfaceml
-              - ivy
-              - maven
-              - npm
-              - nuget
-              - oci
-              - opkg
-              - php
-              - pub
-              - puppet
-              - pypi
-              - rpm
-              - sbt
-              - swift
-              - terraform-modules
-              - vagrant
+              - "alpine"
+              - "bower"
+              - "cargo"
+              - "chef"
+              - "cocoapods"
+              - "conan"
+              - "conda"
+              - "cran"
+              - "debian"
+              - "docker"
+              - "gems"
+              - "generic"
+              - "gitlfs"
+              - "go"
+              - "gradle"
+              - "helm"
+              - "helmoci"
+              - "huggingfaceml"
+              - "ivy"
+              - "maven"
+              - "npm"
+              - "nuget"
+              - "oci"
+              - "opkg"
+              - "php"
+              - "pub"
+              - "puppet"
+              - "pypi"
+              - "rpm"
+              - "sbt"
+              - "swift"
+              - "terraform-modules"
+              - "vagrant"
           repoName: ""
     steps:
     - name: setup_configuration
@@ -76,6 +76,7 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
+          - echo "Completed creating ${repo_type} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createRepos.sh
           - ./createRepos.sh "${repo_type}" "${packageType}" "${repoName}"
