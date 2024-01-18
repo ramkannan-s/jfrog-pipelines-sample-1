@@ -76,6 +76,7 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
-          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/artifacts_cleanup_with_aql/
+          - cd ./dependencyState/resources/infy_repository_data_automations/create_resources/
+          - chmox +x createRepos.sh ; ./createRepos.sh
         onComplete:
-          - echo "The current step is for creating ${repo_type} repository"
+          - echo "Completed creating ${repo_type} repository with package type - ${packageType} and repo name - ${repoName}"
