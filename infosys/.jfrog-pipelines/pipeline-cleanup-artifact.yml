@@ -26,8 +26,6 @@ pipelines:
     - name: artifacts_cleanup_step
       type: Bash
       configuration:
-        integrations:
-          - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
             trigger: false
