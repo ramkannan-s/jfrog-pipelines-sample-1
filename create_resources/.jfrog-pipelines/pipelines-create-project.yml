@@ -1,0 +1,41 @@
+pipelines:
+  - name: project_create
+    configuration:
+      retentionPolicy:
+        maxAgeDays: 30
+        minRuns: 10
+      integrations:
+        - name: jpd_token
+      environmentVariables:
+        readOnly:
+          projectName: ""
+          projectID: ""
+          userId: ""
+    steps:
+    - name: create_project
+      type: Bash
+      configuration:
+        integrations:
+          - name: jpd_token
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
+            python3 --version
+        onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
+          - echo "Creating project"
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
+          - chmod +x createProjects.sh
+          - ./createProjects.sh 
+        onComplete:
+          - echo "Completed project"
