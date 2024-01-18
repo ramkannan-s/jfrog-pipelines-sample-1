@@ -26,8 +26,8 @@ pipelines:
     - name: users_cleanup_step
       type: Bash
       configuration:
-        integrations:
-          - name: genericcreds
+#        integrations:
+ #         - name: genericcreds
         inputResources:
           - name: JFrog_Automation_Repo
             trigger: false
