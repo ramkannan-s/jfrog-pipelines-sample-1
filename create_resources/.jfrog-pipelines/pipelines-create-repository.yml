@@ -76,7 +76,7 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
-          - ls -lsa
+          - ls -lR
           - pwd
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmox +x createRepos.sh ; ./createRepos.sh
