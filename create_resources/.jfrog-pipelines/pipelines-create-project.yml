@@ -30,7 +30,7 @@ pipelines:
             jf --version
             python3 --version
         onExecute:
-          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c add psapac --url="https://psapac.jfrog.io" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
           - echo "Creating project with id - ${projectID} and name - ${projectName}. Project admin username - ${userId}"
