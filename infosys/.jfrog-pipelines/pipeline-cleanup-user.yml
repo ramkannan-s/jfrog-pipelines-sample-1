@@ -46,7 +46,8 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
-          - cd ./dependencyState/resources/JFrog_Automation_Repo/cleanup_or_deletion_scripts/users_cleanup_last_login/
+          - echo "The current step is running in dry_run = ${dry_run}"
+          - cd ./dependencyState/resources/JFrog_Automation_Repo_1/cleanup_or_deletion_scripts/users_cleanup_last_login/
           - chmod +x cleanup-users.sh
           - python3 user-list.py admin ${int_jpd_token_auto_admin}
           - ./cleanup-users.sh ${months} ${dry_run}
