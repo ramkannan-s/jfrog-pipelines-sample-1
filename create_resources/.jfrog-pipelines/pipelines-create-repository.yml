@@ -54,6 +54,11 @@ pipelines:
               - "terraform-modules"
               - "vagrant"
           repoName: ""
+          remote_repo_url: ""
+          remote_username: ""
+          remote_password: ""
+          virtual_default_deployment_repo: ""
+          virtual_repositories_add_list: ""
     steps:
     - name: setup_configuration
       type: Bash
@@ -79,6 +84,6 @@ pipelines:
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createRepos.sh
-          - ./createRepos.sh "${repoType}" "${packageType}" "${repoName}"
+          - ./createRepos.sh "${repoType}" "${packageType}" "${repoName}" "${remote_repo_url}" "${remote_username}" "${remote_password}" "${virtual_default_deployment_repo}" "${virtual_repositories_add_list}"
         onComplete:
           - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
