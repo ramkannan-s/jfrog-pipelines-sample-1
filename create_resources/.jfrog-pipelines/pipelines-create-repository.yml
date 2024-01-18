@@ -76,9 +76,9 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
-          - echo "Completed creating ${repo_type} repository with package type - ${packageType} and repo name - ${repoName}"
+          - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createRepos.sh
-          - ./createRepos.sh "${repo_type}" "${packageType}" "${repoName}"
+          - ./createRepos.sh "${repoType}" "${packageType}" "${repoName}"
         onComplete:
-          - echo "Completed creating ${repo_type} repository with package type - ${packageType} and repo name - ${repoName}"
+          - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
