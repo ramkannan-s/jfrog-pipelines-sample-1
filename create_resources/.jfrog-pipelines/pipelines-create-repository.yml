@@ -56,7 +56,9 @@ pipelines:
           repoName: ""
           remote_repo_url: ""
           remote_username: ""
-          remote_password: ""
+          remote_password:
+            default: ""
+            secure: true
           virtual_default_deployment_repo: ""
           virtual_repositories_add_list: ""
     steps:
