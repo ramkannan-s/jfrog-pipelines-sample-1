@@ -79,6 +79,6 @@ pipelines:
           - ls -lR
           - pwd
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
-          - chmox +x createRepos.sh ; ./createRepos.sh
+          - chmod +x createRepos.sh ; ./createRepos.sh
         onComplete:
           - echo "Completed creating ${repo_type} repository with package type - ${packageType} and repo name - ${repoName}"
