@@ -30,12 +30,12 @@ pipelines:
             jf --version
             python3 --version
         onExecute:
-          - jf c add psapac --url="https://psapac.jfrog.io" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
           - echo "Creating project with id - ${projectID} and name - ${projectName}. Project admin username - ${userId}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createProjects.sh
-          - ./createProjects.sh "https://psapac.jfrog.io/" "${int_jpd_token_auto_admin}" "${projectName}" "${projectID}" "${userId}"
+          - ./createProjects.sh "https://psapac.jfrog.io" "${int_jpd_token_auto_admin}" "${projectName}" "${projectID}" "${userId}"
         onComplete:
           - echo "Completed creation of project with id - ${projectID} and name - ${projectName}. Project admin username - ${userId}"
