@@ -183,7 +183,6 @@ pipelines:
             mv jq-linux-amd64 jq
             cp jq /usr/local/bin/
             jq --version
-            ./jq --version
             jf --version
         onExecute:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
