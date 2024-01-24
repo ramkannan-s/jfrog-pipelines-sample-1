@@ -64,13 +64,9 @@ pipelines:
     steps:
     - name: setup_configuration
       type: Bash
-      configuration:
-        condition: 'repoType == "local"' 
+      configuration: 
         integrations:
           - name: jpd_token
-        inputResources:
-          - name: JFrog_Automation_Repo
-            trigger: false
       execution:
         onStart:
           - |
@@ -84,9 +80,67 @@ pipelines:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
           - jf rt ping
+  
+    - name: local_repo_creation
+      type: Bash
+      configuration:
+        condition: 'repoType == "local"' 
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onExecute:
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
-          - chmod +x createRepos.sh
-          - ./createRepos.sh "${repoType}" "${packageType}" "${repoName}" "${remote_repo_url}" "${remote_username}" "${remote_password}" "${virtual_default_deployment_repo}" "${virtual_repositories_add_list}"
+          - chmod +x createLocalRepo.sh
+          - ./createLocalRepo.sh "${repoType}" "${packageType}" "${repoName}"
+        onComplete:
+          - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+
+    - name: remote_repo_creation
+      type: Bash
+      configuration:
+        condition: 'repoType == "remote"' 
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onExecute:
+          - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
+          - chmod +x createRemoteRepo.sh
+          - ./createRemoteRepo.sh "${repoType}" "${packageType}" "${repoName}" "${remote_repo_url}" "${remote_username}" "${remote_password}"
+        onComplete:
+          - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+
+    - name: virtual_repo_creation
+      type: Bash
+      configuration:
+        condition: 'repoType == "virtual"' 
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onExecute:
+          - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
+          - chmod +x createVirtualRepo.sh
+          - ./createVirtualRepo.sh "${repoType}" "${packageType}" "${repoName}" "${virtual_default_deployment_repo}" "${virtual_repositories_add_list}"
+        onComplete:
+          - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+
+    - name: federated_repo_creation
+      type: Bash
+      configuration:
+        condition: 'repoType == "federated"' 
+        inputResources:
+          - name: JFrog_Automation_Repo
+            trigger: false
+      execution:
+        onExecute:
+          - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
+          - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
+          - chmod +x createFederatedRepo.sh
+          - ./createFederatedRepo.sh "${repoType}" "${packageType}" "${repoName}"
         onComplete:
           - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
