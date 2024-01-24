@@ -11,7 +11,7 @@ pipelines:
           projectName: ""
           projectID: ""
           userId: ""
-          storage_quota_bytes: "-1"
+          storage_quota_bytes: "1073741824"
     steps:
     - name: create_project
       type: Bash
