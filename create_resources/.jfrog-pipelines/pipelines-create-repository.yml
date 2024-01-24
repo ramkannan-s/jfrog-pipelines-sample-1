@@ -65,6 +65,7 @@ pipelines:
     - name: setup_configuration
       type: Bash
       configuration:
+        condition: '${repoType} == local' 
         integrations:
           - name: jpd_token
         inputResources:
