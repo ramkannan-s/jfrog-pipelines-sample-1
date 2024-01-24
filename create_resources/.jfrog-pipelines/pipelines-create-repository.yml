@@ -188,6 +188,8 @@ pipelines:
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createFederatedRepo.sh
+          - cat createFederatedRepo.sh
+          - cat repository-template.json
           - ./createFederatedRepo.sh "${repoType}" "${packageType}" "${repoName}"
         onComplete:
           - echo "Completed creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
