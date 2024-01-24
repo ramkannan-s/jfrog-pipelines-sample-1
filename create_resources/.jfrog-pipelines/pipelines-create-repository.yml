@@ -85,7 +85,8 @@ pipelines:
     - name: local_repo_creation
       type: Bash
       configuration:
-        affinityGroup: repo_group
+        integrations:
+          - name: jpd_token
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "local"' 
@@ -93,7 +94,17 @@ pipelines:
           - name: JFrog_Automation_Repo
             trigger: false
       execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
         onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createLocalRepo.sh
@@ -104,7 +115,8 @@ pipelines:
     - name: remote_repo_creation
       type: Bash
       configuration:
-        affinityGroup: repo_group
+        integrations:
+          - name: jpd_token
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "remote"' 
@@ -112,7 +124,17 @@ pipelines:
           - name: JFrog_Automation_Repo
             trigger: false
       execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
         onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createRemoteRepo.sh
@@ -123,7 +145,8 @@ pipelines:
     - name: virtual_repo_creation
       type: Bash
       configuration:
-        affinityGroup: repo_group
+        integrations:
+          - name: jpd_token
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "virtual"' 
@@ -131,7 +154,17 @@ pipelines:
           - name: JFrog_Automation_Repo
             trigger: false
       execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
         onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createVirtualRepo.sh
@@ -142,7 +175,8 @@ pipelines:
     - name: federated_repo_creation
       type: Bash
       configuration:
-        affinityGroup: repo_group
+        integrations:
+          - name: jpd_token
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "federated"' 
@@ -150,7 +184,17 @@ pipelines:
           - name: JFrog_Automation_Repo
             trigger: false
       execution:
+        onStart:
+          - |
+            echo "Installing Packages...."
+            sudo apt-get install jq
+            sudo curl -fL https://install-cli.jfrog.io | sh
+            jq --version
+            jf --version
         onExecute:
+          - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
+          - jf c show
+          - jf rt ping
           - echo "Creating ${repoType} repository with package type - ${packageType} and repo name - ${repoName}"
           - cd ./dependencyState/resources/JFrog_Automation_Repo/create_resources/
           - chmod +x createFederatedRepo.sh
