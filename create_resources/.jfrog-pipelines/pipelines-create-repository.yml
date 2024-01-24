@@ -177,6 +177,7 @@ pipelines:
         onStart:
           - |
             echo "Installing Packages...."
+            sudo apt-get update
             sudo apt-get install jq
             sudo curl -fL https://install-cli.jfrog.io | sh
             jq --version
