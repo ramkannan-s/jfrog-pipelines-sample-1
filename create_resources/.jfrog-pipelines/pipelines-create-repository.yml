@@ -84,6 +84,8 @@ pipelines:
     - name: local_repo_creation
       type: Bash
       configuration:
+        inputSteps:
+          - name: setup_configuration
         condition: 'repoType == "local"' 
         inputResources:
           - name: JFrog_Automation_Repo
@@ -100,6 +102,8 @@ pipelines:
     - name: remote_repo_creation
       type: Bash
       configuration:
+        inputSteps:
+          - name: setup_configuration
         condition: 'repoType == "remote"' 
         inputResources:
           - name: JFrog_Automation_Repo
@@ -116,6 +120,8 @@ pipelines:
     - name: virtual_repo_creation
       type: Bash
       configuration:
+        inputSteps:
+          - name: setup_configuration
         condition: 'repoType == "virtual"' 
         inputResources:
           - name: JFrog_Automation_Repo
@@ -132,6 +138,8 @@ pipelines:
     - name: federated_repo_creation
       type: Bash
       configuration:
+        inputSteps:
+          - name: setup_configuration
         condition: 'repoType == "federated"' 
         inputResources:
           - name: JFrog_Automation_Repo
