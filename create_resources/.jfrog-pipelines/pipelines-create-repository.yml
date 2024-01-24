@@ -64,7 +64,8 @@ pipelines:
     steps:
     - name: setup_configuration
       type: Bash
-      configuration: 
+      configuration:
+        affinityGroup: repo_group
         integrations:
           - name: jpd_token
       execution:
@@ -84,6 +85,7 @@ pipelines:
     - name: local_repo_creation
       type: Bash
       configuration:
+        affinityGroup: repo_group
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "local"' 
@@ -102,6 +104,7 @@ pipelines:
     - name: remote_repo_creation
       type: Bash
       configuration:
+        affinityGroup: repo_group
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "remote"' 
@@ -120,6 +123,7 @@ pipelines:
     - name: virtual_repo_creation
       type: Bash
       configuration:
+        affinityGroup: repo_group
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "virtual"' 
@@ -138,6 +142,7 @@ pipelines:
     - name: federated_repo_creation
       type: Bash
       configuration:
+        affinityGroup: repo_group
         inputSteps:
           - name: setup_configuration
         condition: 'repoType == "federated"' 
