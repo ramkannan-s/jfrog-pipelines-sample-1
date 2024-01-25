@@ -184,7 +184,9 @@ pipelines:
             mv jq-1.7.1 jq
             which jq
             chmod +x jq
-            cp -rf jq /usr/local/bin/
+            ls -lsa
+            cp -rf jq /usr/bin/
+            ls -lsa /usr/bin/
             jq --version
             sudo curl -fL https://install-cli.jfrog.io | sh
             jf --version
