@@ -181,10 +181,12 @@ pipelines:
             sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-1.7.1.zip
             sudo unzip jq-1.7.1.zip
             ls
-            sudo curl -fL https://install-cli.jfrog.io | sh
-            mv jq-linux-amd64 jq
-            cp jq /usr/local/bin/
+            mv jq-1.7.1 jq
+            which jq
+            chmod +x jq
+            cp -rf jq /usr/local/bin/
             jq --version
+            sudo curl -fL https://install-cli.jfrog.io | sh
             jf --version
         onExecute:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
