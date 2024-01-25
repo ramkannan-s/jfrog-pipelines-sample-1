@@ -177,11 +177,10 @@ pipelines:
         onStart:
           - |
             echo "Installing Packages...."
-            cat /etc/os-release
-            lsb_release -a
-            hostnamectl
             sudo apt-get update -y
-            sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+            sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-1.7.1.zip
+            sudo unzip jq-1.7.1.zip
+            ls
             sudo curl -fL https://install-cli.jfrog.io | sh
             mv jq-linux-amd64 jq
             cp jq /usr/local/bin/
