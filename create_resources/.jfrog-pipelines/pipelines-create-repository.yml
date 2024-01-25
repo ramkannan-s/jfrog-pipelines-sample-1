@@ -181,7 +181,8 @@ pipelines:
             sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-1.7.1.zip
             sudo unzip jq-1.7.1.zip
             ls
-            mv jq-1.7.1 jq
+            cd jq-1.7.1/
+            ls -lsa
             which jq
             chmod +x jq
             ls -lsa
