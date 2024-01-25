@@ -177,13 +177,13 @@ pipelines:
         onStart:
           - |
             echo "Installing Packages...."
-            sudo apt-get install jq -y
             sudo curl -fL https://install-cli.jfrog.io | sh
-            jq --version
             jf --version
-            sudo echo "deb http://us.archive.ubuntu.com/ubuntu vivid main universe" >> /etc/apt/sources.list
-            sudo apt-get update -y
-            sudo apt-get install jq -y
+            wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+            mv jq-linux-amd64 jq
+            chmod +x jq
+            sudo cp -rf jq /usr/bin/
+            jq --version
         onExecute:
           - jf c add psapac --url="https://psapac.jfrog.io/" --access-token="${int_jpd_token_auto_admin}" --interactive=false
           - jf c show
